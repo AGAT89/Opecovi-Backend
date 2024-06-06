@@ -5,27 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Person extends Model
+class Position extends Model
 {
     use HasFactory;
 
-    protected $table = 'peoples';
+    protected $table = 'positions';
 
     protected $fillable = [
-        'tipo_persona',
-        'tipo_documento',
-        'documento_identidad',
-        'apellido_paterno',
-        'apellido_materno',
-        'nombres',
-        'direccion',
-        'ubigeo',
-        'telefono',
-        'es_empleado',
-        'es_proveedor',
+        'area_id',
+        'cod_cargo',
+        'nombre_cargo',
         'es_activo',
         'es_eliminado'
     ];
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
 
     public function employees()
     {

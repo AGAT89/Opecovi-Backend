@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('positions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('people_id');
-            $table->foreign('people_id')->references('id')->on('peoples')->onUpdate('no action')->onDelete('no action');
             $table->unsignedBigInteger('area_id');
             $table->foreign('area_id')->references('id')->on('areas')->onUpdate('no action')->onDelete('no action');
-            $table->unsignedBigInteger('position_id');
-            $table->foreign('position_id')->references('id')->on('positions')->onUpdate('no action')->onDelete('no action');
+            $table->string('cod_cargo');
+            $table->string('nombre_cargo');
             $table->enum('es_activo', ['0','1'])->default('1');
             $table->enum('es_eliminado', ['0','1'])->default('0');
             $table->timestamps();
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('positions');
     }
 };

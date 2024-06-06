@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -13,6 +15,9 @@ class RoleController extends Controller
     public function index()
     {
         //
+        $roles = Role::get();
+
+        return response()->json(['data' => $roles], 200);
     }
 
     /**
@@ -29,6 +34,22 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
+        $role = Role::create([
+            'rol' => $request->rol,
+            'activo' => 1,
+        ]);
+        // $variable = [];
+        // foreach ($variable as $key => $value) {
+        //     # code...
+        //     Permission::create([
+        //         'role_id' => $role->id,
+        //         'module_id' => $value->id
+        //     ]);
+        // }
+
+        return response()->json(['data' => $role], 200);
+
+
     }
 
     /**
@@ -53,6 +74,11 @@ class RoleController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $role = Role::find($id);
+        $role->rol = $request->rol;
+        $role->save();
+
+        return response()->json(['data' => $role], 200);
     }
 
     /**
@@ -61,5 +87,10 @@ class RoleController extends Controller
     public function destroy(string $id)
     {
         //
+        $role = Role::find($id);
+        $role->activo = '0';
+        $role->save();
+
+        return response()->json(['data'=> $role], 200);
     }
 }

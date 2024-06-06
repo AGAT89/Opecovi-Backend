@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Employee;
+use App\Models\Area;
 use Illuminate\Http\Request;
 
-class EmployeeController extends Controller
+class AreaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class EmployeeController extends Controller
     public function index()
     {
         //
-        $employees = Employee::where('es_activo', '1')->with('person', 'area', 'position')->get();
+        $areas = Area::where('es_activo', '1')->get();
 
-        return response()->json(['data'=>$employees], 200);
+        return response()->json(['data' => $areas], 200);
     }
 
     /**
@@ -33,15 +33,15 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         //
-        $employee = Employee::create([
-            'people_id' => $request->people_id,
-            'area_id' => $request->area_id,
-            'position_id' => $request->position_id,
+        $area = Area::create([
+            'cod_area' => $request->cod_area,
+            'nombre_area' => $request->nombre_area,
+            'centro_costos' => $request->centro_costos,
             'es_activo' => '1',
             'es_eliminado' => '0'
         ]);
 
-        return response()->json(['data'=>$employee], 200);
+        return response()->json(['data'=>$area], 200);
     }
 
     /**
@@ -66,13 +66,13 @@ class EmployeeController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $employee = Employee::find($id);
-        $employee->people_id = $request->people_id;
-        $employee->area_id = $request->area_id;
-        $employee->position_id = $request->position_id;
-        $employee->save();
+        $area = Area::find($id);
+        $area->cod_area = $request->cod_area;
+        $area->nombre_area = $request->nombre_area;
+        $area->centro_costos = $request->centro_costos;
+        $area->save();
 
-        return response()->json(['data'=> $employee], 200);
+        return response()->json(['data'=>$area], 200);
     }
 
     /**
@@ -81,11 +81,11 @@ class EmployeeController extends Controller
     public function destroy(string $id)
     {
         //
-        $employee = Employee::find($id);
-        $employee->es_activo = '0';
-        $employee->es_eliminado = '1';
-        $employee->save();
+        $area = Area::find($id);
+        $area->es_activo = '0';
+        $area->es_eliminado = '1';
+        $area->save();
 
-        return response()->json(['data' => $employee], 200);
+        return response()->json(['data'=>$area], 200);
     }
 }

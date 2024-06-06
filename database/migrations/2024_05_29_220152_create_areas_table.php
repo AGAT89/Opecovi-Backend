@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('people', function (Blueprint $table) {
+        Schema::create('areas', function (Blueprint $table) {
             $table->id();
+            $table->string('cod_area');
+            $table->string('nombre_area');
+            $table->string('centro_costos');
+            $table->enum('es_activo', ['0','1'])->default('1');
+            $table->enum('es_eliminado', ['0','1'])->default('0');
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('people');
+        Schema::dropIfExists('areas');
     }
 };

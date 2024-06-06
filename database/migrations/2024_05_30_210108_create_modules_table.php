@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('route');
-            $table->string('icon');
+            $table->string('nombre');
+            $table->string('ruta');
+            $table->string('icono');
             $table->string('slug');
-            $table->string('type');
+            $table->string('tipo');
             $table->timestamps();
         });
     }
