@@ -25,6 +25,7 @@ Route::group([
 
 Route::resource('areas', AreaController::class);
 Route::resource('positions', PositionController::class);
+Route::get('positions-for-area/{id}', [PositionController::class, 'positionsForArea']);
 Route::resource('persons', PersonController::class);
 Route::resource('employees', EmployeeController::class);
 Route::resource('roles', RoleController::class);

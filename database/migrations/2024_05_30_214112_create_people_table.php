@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('peoples', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo_persona');
-            $table->string('tipo_documento');
-            $table->string('documento_identidad');
-            $table->string('apellido_paterno');
-            $table->string('apellido_materno');
-            $table->string('nombres');
-            $table->string('direccion');
-            $table->string('ubigeo');
-            $table->string('telefono');
+            $table->string('tipo_persona')->nullable();
+            $table->string('tipo_documento')->nullable();
+            $table->string('documento_identidad')->nullable();
+            $table->string('apellido_paterno')->nullable();
+            $table->string('apellido_materno')->nullable();
+            $table->string('nombres')->nullable();
+            $table->string('direccion')->nullable();
+            $table->string('ubigeo')->nullable();
+            $table->string('telefono')->nullable();
             $table->enum('es_empleado', ['0','1'])->default('0');
             $table->enum('es_proveedor', ['0','1'])->default('0');
             $table->enum('es_activo', ['0','1'])->default('1');

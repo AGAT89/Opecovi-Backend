@@ -88,4 +88,10 @@ class PositionController extends Controller
 
         return response()->json(['data'=>$position], 200);
     }
+
+    public function positionsForArea($id){
+        $positions = Position::where('area_id', $id)->where('es_activo', '1')->with('area')->get();
+
+        return response()->json(['data'=>$positions], 200);
+    }
 }
