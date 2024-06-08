@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Person extends Model
+class Persona extends Model
 {
     use HasFactory;
 
-    protected $table = 'peoples';
+    protected $table = 'm_persona';
 
     protected $fillable = [
+        'id_persona',
+        'id_empresa',
         'tipo_persona',
         'tipo_documento',
         'documento_identidad',
@@ -24,11 +26,18 @@ class Person extends Model
         'es_empleado',
         'es_proveedor',
         'es_activo',
-        'es_eliminado'
+        'es_eliminado',
+        'usuario_creacion',
+        'fecha_creacion',
+        'usuario_modificacion',
+        'fecha_modificacion'
     ];
 
-    public function employees()
+    protected $primaryKey = 'id_persona';
+    public $timestamps = false; // Deshabilitar timestamps
+
+    public function empresa()
     {
-        return $this->hasMany(Employee::class);
+        return $this->belongsTo(Empresa::class, 'id_empresa', 'id_empresa');
     }
 }

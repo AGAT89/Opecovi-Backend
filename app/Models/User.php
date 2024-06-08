@@ -17,10 +17,23 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
+    protected $table = 'm_usuario';
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        // 'name',
+        // 'email',
+        // 'password',
+        'id_usuario',
+        'id_empresa',
+        'id_empleado',
+        'usuario',
+        'contraseña',
+        'es_activo',
+        'es_eliminado',
+        'usuario_creacion',
+        'fecha_creacion',
+        'usuario_modificacion',
+        'fecha_modificacion'
     ];
 
     /**
@@ -28,10 +41,10 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    // protected $hidden = [
+    //     'password',
+    //     'remember_token',
+    // ];
 
     /**
      * Get the attributes that should be cast.
@@ -66,8 +79,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
+    // public function role()
+    // {
+    //     return $this->belongsTo(Role::class);
+    // }
 }

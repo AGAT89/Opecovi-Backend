@@ -3,20 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Area;
+use App\Models\Empleado;
 use Illuminate\Http\Request;
 
-class AreaController extends Controller
+class EmpleadoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-        $areas = Area::where('es_activo', '1')->with('empresa')->get();
+        $emplados = Empleado::where('es_activo', '1')->with('empresa', 'persona', 'area', 'cargo')->get();
 
-        return response()->json(['data' => $areas], 200);
+        return response()->json(['data'=>$emplados], 200);
     }
 
     /**
@@ -32,17 +31,16 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $area = Area::create([
+        $empleado = Empleado::create([
             'id_empresa' => $request->id_empresa,
-            'cod_area' => $request->cod_area,
-            'nomb_area' => $request->nomb_area,
-            'centro_costos' => $request->centro_costos,
+            'id_persona' => $request->id_persona,
+            'id_area' => $request->id_area,
+            'id_cargo' => $request->id_cargo,
             'es_activo' => '1',
-            'es_eliminado' => '0'
+            'es_eliminado' => '0',
         ]);
 
-        return response()->json(['data'=>$area], 200);
+        return response()->json(['data'=>$empleado], 200);
     }
 
     /**
@@ -67,13 +65,14 @@ class AreaController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $area = Area::find($id);
-        $area->cod_area = $request->cod_area;
-        $area->nomb_area = $request->nomb_area;
-        $area->centro_costos = $request->centro_costos;
-        $area->save();
+        $empleado = Empleado::find($id);
+        $empleado->id_empresa = $request->id_empresa;
+        $empleado->id_persona = $request->id_persona;
+        $empleado->id_area = $request->id_area;
+        $empleado->id_cargo = $request->id_cargo;
+        $empleado->save();
 
-        return response()->json(['data'=>$area], 200);
+        return response()->json(['data'=>$empleado], 200);
     }
 
     /**
@@ -82,11 +81,11 @@ class AreaController extends Controller
     public function destroy(string $id)
     {
         //
-        $area = Area::find($id);
-        $area->es_activo = '0';
-        $area->es_eliminado = '1';
-        $area->save();
+        $empleado = Empleado::find($id);
+        $empleado->es_activo = '0';
+        $empleado->es_eliminado = '1';
+        $empleado->save();
 
-        return response()->json(['data'=>$area], 200);
+        return response()->json(['data'=>$empleado], 200);
     }
 }

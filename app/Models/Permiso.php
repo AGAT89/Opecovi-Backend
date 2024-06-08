@@ -5,27 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Area extends Model
+class Permiso extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_area';
+    protected $table = 'm_permisos';
 
     protected $fillable = [
-        'id_area',
+        'id_permiso',
+        'id_rol',
+        'id_modulo',
         'id_empresa',
-        'cod_area',
-        'nomb_area',
-        'centro_costos',
         'es_activo',
         'es_eliminado',
         'usuario_creacion',
         'fecha_creacion',
         'usuario_modificacion',
-        'fecha_modificacion'
+        'fecha_modificacion',
     ];
 
-    protected $primaryKey = 'id_area';
+    protected $primaryKey = 'id_permiso';
     public $timestamps = false; // Deshabilitar timestamps
 
     public function empresa()
@@ -33,8 +32,13 @@ class Area extends Model
         return $this->belongsTo(Empresa::class, 'id_empresa', 'id_empresa');
     }
 
-    public function cargos()
+    public function rol()
     {
-        return $this->hasMany(Cargo::class, 'id_empresa', 'id_empresa');
+        return $this->belongsTo(Rol::class, 'id_rol', 'id_rol');
+    }
+
+    public function modulo()
+    {
+        return $this->belongsTo(Modulo::class, 'id_modulo', 'id_modulo');
     }
 }

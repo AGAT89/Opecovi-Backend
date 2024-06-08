@@ -5,36 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Area extends Model
+class Rol extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_area';
+    protected $table = 'm_roles';
 
     protected $fillable = [
-        'id_area',
-        'id_empresa',
-        'cod_area',
-        'nomb_area',
-        'centro_costos',
+        'id_rol',
         'es_activo',
-        'es_eliminado',
         'usuario_creacion',
         'fecha_creacion',
         'usuario_modificacion',
-        'fecha_modificacion'
+        'fecha_modificacion',
+        'es_eliminado',
+        'id_empresa',
+        'nomb_rol'
     ];
 
-    protected $primaryKey = 'id_area';
+    protected $primaryKey = 'id_rol';
     public $timestamps = false; // Deshabilitar timestamps
 
     public function empresa()
     {
         return $this->belongsTo(Empresa::class, 'id_empresa', 'id_empresa');
-    }
-
-    public function cargos()
-    {
-        return $this->hasMany(Cargo::class, 'id_empresa', 'id_empresa');
     }
 }

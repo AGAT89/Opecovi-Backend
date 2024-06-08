@@ -3,20 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Person;
+use App\Models\Persona;
 use Illuminate\Http\Request;
 
-class PersonController extends Controller
+class PersonaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-        $persons = Person::where('es_activo', '1')->get();
+        $personas = Persona::where('es_activo', '1')->with('empresa')->get();
 
-        return response()->json(['data'=>$persons], 200);
+        return response()->json(['data'=>$personas], 200);
     }
 
     /**
@@ -32,8 +31,8 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $person = Person::create([
+        $persona = Persona::create([
+            'id_empresa' => $request->id_empresa,
             'tipo_persona' => $request->tipo_persona,
             'tipo_documento' => $request->tipo_documento,
             'documento_identidad' => $request->documento_identidad,
@@ -46,10 +45,10 @@ class PersonController extends Controller
             'es_empleado' => $request->es_empleado,
             'es_proveedor' => $request->es_proveedor,
             'es_activo' => '1',
-            'es_eliminado' => '0'
+            'es_eliminado' => '0',
         ]);
 
-        return response()->json(['data' => $person], 200);
+        return response()->json(['data'=>$persona], 200);
     }
 
     /**
@@ -73,22 +72,22 @@ class PersonController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-        $person = Person::find($id);
-        $person->tipo_persona = $request->tipo_persona;
-        $person->tipo_documento = $request->tipo_documento;
-        $person->documento_identidad = $request->documento_identidad;
-        $person->apellido_paterno = $request->apellido_paterno;
-        $person->apellido_materno = $request->apellido_materno;
-        $person->nombres = $request->nombres;
-        $person->direccion = $request->direccion;
-        $person->ubigeo = $request->ubigeo;
-        $person->telefono = $request->telefono;
-        $person->es_empleado = $request->es_empleado;
-        $person->es_proveedor = $request->es_proveedor;
-        $person->save();
+        $persona = Persona::find($id);
+        $persona->id_empresa = $request->id_empresa;
+        $persona->tipo_persona = $request->tipo_persona;
+        $persona->tipo_documento = $request->tipo_documento;
+        $persona->documento_identidad = $request->documento_identidad;
+        $persona->apellido_paterno = $request->apellido_paterno;
+        $persona->apellido_materno = $request->apellido_materno;
+        $persona->nombres = $request->nombres;
+        $persona->direccion = $request->direccion;
+        $persona->ubigeo = $request->ubigeo;
+        $persona->telefono = $request->telefono;
+        $persona->es_empleado = $request->es_empleado;
+        $persona->es_proveedor = $request->es_proveedor;
+        $persona->save();
 
-        return response()->json(['data'=>$person], 200);
+        return response()->json(['data'=>$persona], 200);
     }
 
     /**
@@ -96,12 +95,17 @@ class PersonController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-        $person = Person::find($id);
-        $person->es_activo = '0';
-        $person->es_eliminado = '1';
-        $person->save();
+        $persona = Persona::find($id);
+        $persona->es_activo = '0';
+        $persona->es_eliminado = '1';
+        $persona->save();
 
-        return response()->json(['data'=>$person], 200);
+        return response()->json(['data'=>$persona], 200);
+    }
+
+    public function buscaPorDocumento(String $documento){
+        $persona = Persona::where('documento_identidad', $documento)->first();
+
+        return response()->json(['data'=>$persona],200);
     }
 }
