@@ -30,4 +30,9 @@ class Rol extends Model
     {
         return $this->belongsTo(Empresa::class, 'id_empresa', 'id_empresa');
     }
+
+    public function permisos()
+    {
+        return $this->hasMany(Permiso::class, 'id_rol', 'id_rol');
+    }
 }

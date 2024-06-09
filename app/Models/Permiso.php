@@ -24,7 +24,7 @@ class Permiso extends Model
         'fecha_modificacion',
     ];
 
-    protected $primaryKey = 'id_permiso';
+    protected $primaryKey = 'id_permisos';
     public $timestamps = false; // Deshabilitar timestamps
 
     public function empresa()
