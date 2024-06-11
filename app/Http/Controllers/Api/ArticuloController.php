@@ -1,0 +1,103 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Articulo;
+use Illuminate\Http\Request;
+
+class ArticuloController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $articulos = Articulo::where('es_activo', '1')->with('empresa')->get();
+
+        return response()->json(['data'=>$articulos],200);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $articulo = Articulo::create([
+            'id_empresa' => $request->id_empresa,
+            'id_almacen' => $request->id_almacen,
+            'cod_articulo' => $request->cod_articulo,
+            'nomb_articulo' => $request->nomb_articulo,
+            'unidad_medida' => $request->unidad_medida,
+            'contenido_articulo' => $request->contenido_articulo,
+            'peso_articulo' => $request->pedo_articulo,
+            'volumen_articulo' => $request->volumen_articulo,
+            'stock_minimo' => $request->stock_minimo,
+            'tipo_articulo' => $request->tipo_articulo,
+            'cod_barra_articulo' => $request->cod_barra_articulo,
+            'es_activo' => '1',
+            'es_eliminado' => '0',
+        ]);
+
+        return response()->json(['data'=>$articulo],200);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $articulo = Articulo::find($id);
+        $articulo->id_empresa = $request->id_empresa;
+        $articulo->id_almacen = $request->id_almacen;
+        $articulo->cod_articulo = $request->cod_articulo;
+        $articulo->nomb_articulo = $request->nomb_articulo;
+        $articulo->unidad_medida = $request->unidad_medida;
+        $articulo->contenido_articulo = $request->contenido_articulo;
+        $articulo->peso_articulo = $request->pedo_articulo;
+        $articulo->volumen_articulo = $request->volumen_articulo;
+        $articulo->stock_minimo = $request->stock_minimo;
+        $articulo->tipo_articulo = $request->tipo_articulo;
+        $articulo->cod_barra_articulo = $request->cod_barra_articulo;
+        $articulo->save();
+
+        return response()->json(['data'=>$articulo],200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $articulo = Articulo::find($id);
+        $articulo->es_activo = '0';
+        $articulo->es_eliminado = '1';
+        $articulo->save();
+
+        return response()->json(['data'=>$articulo],200);
+    }
+}
