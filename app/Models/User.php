@@ -27,14 +27,18 @@ class User extends Authenticatable implements JWTSubject
         'id_empresa',
         'id_empleado',
         'usuario',
-        'contraseña',
+        'contrasena',
         'es_activo',
         'es_eliminado',
         'usuario_creacion',
         'fecha_creacion',
         'usuario_modificacion',
-        'fecha_modificacion'
+        'fecha_modificacion',
+        'id_rol'
     ];
+
+    protected $primaryKey = 'id_usuario';
+    public $timestamps = false; // Deshabilitar timestamps
 
     /**
      * The attributes that should be hidden for serialization.
@@ -83,4 +87,20 @@ class User extends Authenticatable implements JWTSubject
     // {
     //     return $this->belongsTo(Role::class);
     // }
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class, 'id_empresa', 'id_empresa');
+    }
+
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class, 'id_empleado', 'id_empleado');
+    }
+
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'id_rol', 'id_rol');
+    }
+
 }

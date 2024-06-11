@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\PersonaController;
 use App\Http\Controllers\Api\ProveedorController;
 use App\Http\Controllers\Api\RequerimientoController;
 use App\Http\Controllers\Api\RolController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,3 +41,4 @@ Route::resource('roles', RolController::class);
 Route::resource('permisos', PermisoController::class);
 Route::resource('articulos', ArticuloController::class);
 Route::resource('requerimientos', RequerimientoController::class);
+Route::resource('usuarios', UserController::class);
