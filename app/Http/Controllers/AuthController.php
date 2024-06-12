@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\isEmpty;
 
 class AuthController extends Controller
 {
@@ -26,11 +29,20 @@ class AuthController extends Controller
     {
         $credentials = request(['usuario', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        // if (! $token = auth()->attempt($credentials)) {
+        //     return response()->json(['error' => 'Unauthorized'], 401);
+        // }
+
+        // return $this->respondWithToken($token);
+
+        $usuario = User::where('usuario', $credentials['usuario'])->where('contrasena', $credentials['password'])->with('empresa', 'empleado.persona', 'rol.permisos.modulo')->first();
+
+        if ($usuario) {
+            return response()->json(['data'=> $usuario, 'statusCode' => 200], 200);
         }
 
-        return $this->respondWithToken($token);
+
+        return response()->json(['error' => 'Credenciales incorrectas', 'statusCode' => 500], 200);
     }
 
     /**
