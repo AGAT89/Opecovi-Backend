@@ -93,4 +93,11 @@ class RequerimientoController extends Controller
     {
         //
     }
+
+    public function buscarRequerimiento($id) {
+
+        $requerimiento = Requerimiento::with('empresa', 'sucursal', 'empleado.persona', 'requerimientosDetalle')->find($id);
+
+        return response()->json(['data'=>$requerimiento],200);
+    }
 }

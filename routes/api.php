@@ -41,4 +41,5 @@ Route::resource('roles', RolController::class);
 Route::resource('permisos', PermisoController::class);
 Route::resource('articulos', ArticuloController::class);
 Route::resource('requerimientos', RequerimientoController::class);
+Route::get('busca-requerimiento/{id}', [RequerimientoController::class, 'buscarRequerimiento']);
 Route::resource('usuarios', UserController::class);

@@ -21,7 +21,9 @@ class Modulo extends Model
         'usuario_modificacion',
         'fecha_modificacion',
         'es_activo',
-        'es_eliminado'
+        'es_eliminado',
+        'path',
+        'icon'
     ];
 
     protected $primaryKey = 'id_modulo';
