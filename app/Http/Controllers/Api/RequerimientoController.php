@@ -92,11 +92,17 @@ class RequerimientoController extends Controller
     public function destroy(string $id)
     {
         //
+        $requerimiento = Requerimiento::find($id);
+        $requerimiento->es_activo = '0';
+        $requerimiento->es_eliminado = '1';
+        $requerimiento->save();
+
+        return response()->json(['data'=>$requerimiento],200);
     }
 
     public function buscarRequerimiento($id) {
 
-        $requerimiento = Requerimiento::with('empresa', 'sucursal', 'empleado.persona', 'requerimientosDetalle')->find($id);
+        $requerimiento = Requerimiento::with('empresa', 'sucursal', 'empleado.persona', 'requerimientosDetalle.articulo')->find($id);
 
         return response()->json(['data'=>$requerimiento],200);
     }

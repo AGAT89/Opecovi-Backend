@@ -32,6 +32,11 @@ class RequerimientoDetalle extends Model
         return $this->belongsTo(Empresa::class, 'id_empresa', 'id_empresa');
     }
 
+    public function articulo()
+    {
+        return $this->belongsTo(Articulo::class, 'id_articulo', 'id_articulo');
+    }
+
     public function requerimiento()
     {
         return $this->belongsTo(Empresa::class, 'id_requerimiento', 'id_requerimiento');
