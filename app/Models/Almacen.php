@@ -5,27 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Area extends Model
+use function PHPSTORM_META\map;
+
+class Almacen extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_area';
-
+    protected $table = 'm_almacen';
     protected $fillable = [
-        'id_area',
+        'id_almacen',
         'id_empresa',
-        'cod_area',
-        'nomb_area',
-        'centro_costos',
+        'id_sucrusal',
+        'cod_almacen',
+        'nomb_almacen',
+        'direccion',
+        'ubigeo',
+        'telefono',
         'es_activo',
         'es_eliminado',
         'usuario_creacion',
         'fecha_creacion',
         'usuario_modificacion',
-        'fecha_modificacion'
+        'fecha_modificacion',
     ];
 
-    protected $primaryKey = 'id_area';
+    protected $primaryKey = 'id_almacen';
     public $timestamps = false; // Deshabilitar timestamps
 
     public function empresa()
@@ -33,8 +37,8 @@ class Area extends Model
         return $this->belongsTo(Empresa::class, 'id_empresa', 'id_empresa');
     }
 
-    public function cargos()
+    public function sucursal()
     {
-        return $this->hasMany(Cargo::class, 'id_area', 'id_area');
+        return $this->belongsTo(Sucursal::class, 'id_sucursal', 'id_sucursal');
     }
 }

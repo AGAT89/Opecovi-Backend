@@ -13,7 +13,7 @@ class ArticuloController extends Controller
      */
     public function index()
     {
-        $articulos = Articulo::where('es_activo', '1')->with('empresa')->get();
+        $articulos = Articulo::where('es_activo', '1')->with('empresa', 'almacen', 'movimientos')->get();
 
         return response()->json(['data'=>$articulos],200);
     }
@@ -41,6 +41,7 @@ class ArticuloController extends Controller
             'peso_articulo' => $request->pedo_articulo,
             'volumen_articulo' => $request->volumen_articulo,
             'stock_minimo' => $request->stock_minimo,
+            'stock_maximo' => $request->stock_maximo,
             'tipo_articulo' => $request->tipo_articulo,
             'cod_barra_articulo' => $request->cod_barra_articulo,
             'es_activo' => '1',
@@ -55,7 +56,9 @@ class ArticuloController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $articulo = Articulo::with('empresa', 'almacen', 'movimientos')->find($id);
+
+        return response()->json(['data'=>$articulo], 200);
     }
 
     /**
@@ -81,6 +84,7 @@ class ArticuloController extends Controller
         $articulo->peso_articulo = $request->pedo_articulo;
         $articulo->volumen_articulo = $request->volumen_articulo;
         $articulo->stock_minimo = $request->stock_minimo;
+        $articulo->stock_maximo = $request->stock_maximo;
         $articulo->tipo_articulo = $request->tipo_articulo;
         $articulo->cod_barra_articulo = $request->cod_barra_articulo;
         $articulo->save();
