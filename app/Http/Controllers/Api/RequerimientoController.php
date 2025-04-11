@@ -42,8 +42,8 @@ class RequerimientoController extends Controller
             'id_empleado' => $request->id_empleado,
             'id_empleado_aprobador' => $request->id_empleado_aprobador,
             'nro_requerimiento' => $request->nro_requerimiento,
-            'fecha_emision' => Carbon::now()->toDateTimeString(),//$request->fecha_emision,
-            'fecha_creacion' => Carbon::now()->toDateTimeString(),//$request->fecha_creacion,
+            'fecha_emision' => Carbon::now()->toDateTimeString(),
+            'fecha_creacion' => Carbon::now()->toDateTimeString(),
             'es_activo' => '1',
             'es_eliminado' => '0',
         ]);

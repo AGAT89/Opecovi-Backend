@@ -14,7 +14,6 @@ class Articulo extends Model
     protected $fillable  = [
         'id_articulo',
         'id_empresa',
-        'id_almacen',
         'cod_articulo',
         'nomb_articulo',
         'unidad_medida',

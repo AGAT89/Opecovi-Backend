@@ -83,4 +83,8 @@ class Empresa extends Model
     {
         return $this->hasMany(RequerimientoDetalle::class, 'id_empresa', 'id_empresa');
     }
+    public function articulos()
+    {
+        return $this->hasMany(Articulo::class, 'id_empresa', 'id_empresa');
+    }
 }

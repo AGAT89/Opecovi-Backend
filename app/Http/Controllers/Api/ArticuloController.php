@@ -33,12 +33,11 @@ class ArticuloController extends Controller
     {
         $articulo = Articulo::create([
             'id_empresa' => $request->id_empresa,
-            'id_almacen' => $request->id_almacen,
             'cod_articulo' => $request->cod_articulo,
             'nomb_articulo' => $request->nomb_articulo,
             'unidad_medida' => $request->unidad_medida,
             'contenido_articulo' => $request->contenido_articulo,
-            'peso_articulo' => $request->pedo_articulo,
+            'peso_articulo' => $request->peso_articulo,
             'volumen_articulo' => $request->volumen_articulo,
             'stock_minimo' => $request->stock_minimo,
             'stock_maximo' => $request->stock_maximo,
@@ -46,6 +45,10 @@ class ArticuloController extends Controller
             'cod_barra_articulo' => $request->cod_barra_articulo,
             'es_activo' => '1',
             'es_eliminado' => '0',
+            'usuario_creacion' => $request->usuario_creacion ?? 'system',
+            'usuario_modificacion'=>$request->usuario_modificacion ?? 'system',
+            'fecha_creacion' =>now(),
+            'fecha_modificacion'=>now(),
         ]);
 
         return response()->json(['data'=>$articulo],200);
@@ -75,20 +78,24 @@ class ArticuloController extends Controller
     public function update(Request $request, string $id)
     {
         $articulo = Articulo::find($id);
+    
+        if (!$articulo) {
+            return response()->json(['error' => 'Artículo no encontrado'], 404);
+        }
+    
         $articulo->id_empresa = $request->id_empresa;
-        $articulo->id_almacen = $request->id_almacen;
         $articulo->cod_articulo = $request->cod_articulo;
         $articulo->nomb_articulo = $request->nomb_articulo;
         $articulo->unidad_medida = $request->unidad_medida;
         $articulo->contenido_articulo = $request->contenido_articulo;
-        $articulo->peso_articulo = $request->pedo_articulo;
+        $articulo->peso_articulo = $request->peso_articulo;
         $articulo->volumen_articulo = $request->volumen_articulo;
         $articulo->stock_minimo = $request->stock_minimo;
         $articulo->stock_maximo = $request->stock_maximo;
         $articulo->tipo_articulo = $request->tipo_articulo;
         $articulo->cod_barra_articulo = $request->cod_barra_articulo;
         $articulo->save();
-
+    
         return response()->json(['data'=>$articulo],200);
     }
 
