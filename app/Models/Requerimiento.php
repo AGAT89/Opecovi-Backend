@@ -17,6 +17,7 @@ class Requerimiento extends Model
         'id_sucursal',
         'id_empleado',
         'id_empleado_aprobador',
+        'id_estados',
         'nro_requerimiento',
         'fecha_emision',
         'fecha_creacion',
@@ -46,9 +47,16 @@ class Requerimiento extends Model
         return $this->belongsTo(Empleado::class, 'id_empleado', 'id_empleado');
     }
 
-
     public function requerimientosDetalle()
     {
         return $this->hasMany(RequerimientoDetalle::class, 'id_requerimiento', 'id_requerimiento');
+    }
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class, 'id_estados', 'id_estados');
+    }
+    public function articulo()
+    {
+    return $this->belongsTo(Articulo::class, 'id_articulo');
     }
 }
