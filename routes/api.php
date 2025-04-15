@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\RequerimientoController;
 use App\Http\Controllers\Api\RolController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\EstadoController;
+use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,4 +48,5 @@ Route::resource('requerimientos', RequerimientoController::class);
 Route::get('busca-requerimiento/{id}', [RequerimientoController::class, 'buscarRequerimiento']);
 Route::resource('usuarios', UserController::class);
 Route::resource('estados', EstadoController::class);
-Route::get('estado-codigo/{tabla}/{id}', [EstadoController::class, 'buscarCodigoEstado']);
+Route::post('/chat/send', [ChatController::class, 'sendMessage']);
+Route::get('/chat/messages', [ChatController::class, 'getMessages']);

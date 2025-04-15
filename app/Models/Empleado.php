@@ -23,10 +23,11 @@ class Empleado extends Model
         'usuario_modificacion',
         'fecha_modificacion',
         'usuario_creacion'
+        
     ];
 
     protected $primaryKey = 'id_empleado';
-    public $timestamps = false; // Deshabilitar timestamps
+    public $timestamps = false;
 
     public function empresa()
     {

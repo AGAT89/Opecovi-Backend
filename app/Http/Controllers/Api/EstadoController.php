@@ -33,21 +33,6 @@ class EstadoController extends Controller
      */
     public function store(Request $request)
     {
-        $estado = Estado::create([
-            'id_estados' => $request->id_sucursal,
-            'id_empresa' => $request->cod_sucursal,
-            'nomb_tabla' => $request->nomb_sucursal,
-            'codigo_estado' => $request->direccion,
-            'nomb_estados' => $request->direccion,
-            'es_activo' => '1',
-            'es_eliminado' => '0',
-            'usuario_creacion' => $request->usuario_creacion ?? 'system',
-            'usuario_modificacion'=>$request->usuario_modificacion ?? 'system',
-            'fecha_creacion' =>now(),
-            'fecha_modificacion'=>now(),
-        ]);
-
-        return response()->json(['data'=>$estado], 200);
     }
 
     /**

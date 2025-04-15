@@ -13,7 +13,7 @@ class ModuloController extends Controller
      */
     public function index()
     {
-        $modulos = Modulo::where('es_activo', '1')->get();
+        $modulos = Modulo::where('es_activo', '1')->with('empresa')->get();
 
         return response()->json(['data'=>$modulos], 200);
     }

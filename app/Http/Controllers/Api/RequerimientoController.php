@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Requerimiento;
 use App\Models\RequerimientoDetalle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class RequerimientoController extends Controller
@@ -91,43 +92,42 @@ class RequerimientoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $requerimiento = Requerimiento::find($id);
+        Log::info("Intentando actualizar requerimiento con ID: {$id}");
+        Log::info("Datos recibidos: ", $request->all());
     
-        if (!$requerimiento) {
-            return response()->json(['message' => 'Requerimiento no encontrado'], 404);
-        }
+        try {
+            $requerimiento = Requerimiento::find($id);
     
-        $requerimiento->update([
-            'id_empresa' => $request->id_empresa,
-            'id_sucursal' => $request->id_sucursal,
-            'id_empleado' => $request->id_empleado,
-            'id_empleado_aprobador' => $request->id_empleado_aprobador,
-            'nro_requerimiento' => $request->nro_requerimiento,
-            'usuario_modificacion' => $request->usuario_modificacion ?? 'system',
-            'fecha_modificacion' => now()
-        ]);
-    
-        if ($request->has('detalle')) {
-            RequerimientoDetalle::where('id_requerimiento', $id)->delete();
-    
-            foreach ($request->detalle as $detalle) {
-                RequerimientoDetalle::create([
-                    'id_empresa' => $request->id_empresa,
-                    'id_requerimiento' => $id,
-                    'id_articulo' => $detalle['id_articulo'],
-                    'cant_solicitada' => $detalle['cant_solicitada'],
-                    'cant_atendida' => 0,
-                    'usuario_creacion' => $request->usuario_modificacion ?? 'system',
-                    'usuario_modificacion' => $request->usuario_modificacion ?? 'system',
-                    'fecha_creacion' => now(),
-                    'fecha_modificacion' => now(),
-                ]);
+            if (!$requerimiento) {
+                Log::warning("Requerimiento no encontrado con ID: {$id}");
+                return response()->json(['message' => 'Requerimiento no encontrado'], 404);
             }
-        }
     
-        return response()->json(['message' => 'Requerimiento actualizado con éxito'], 200);
+            $data = $request->only([
+                'id_empresa',
+                'id_sucursal',
+                'id_empleado',
+                'id_empleado_aprobador',
+                'nro_requerimiento',
+                'id_estados',
+            ]);
+    
+            $data['usuario_modificacion'] = $request->usuario_modificacion ?? 'system';
+            $data['fecha_modificacion'] = now();
+    
+            Log::info("Datos preparados para actualizar: ", $data);
+    
+            $requerimiento->update($data);
+    
+            Log::info("Requerimiento actualizado correctamente con ID: {$id}");
+    
+            return response()->json(['message' => 'Requerimiento actualizado con éxito'], 200);
+        } catch (\Exception $e) {
+            Log::error("Error al actualizar requerimiento con ID: {$id}. Mensaje: " . $e->getMessage());
+            return response()->json(['message' => 'Error interno del servidor'], 500);
+        }
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
