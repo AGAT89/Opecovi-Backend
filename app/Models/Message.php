@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    protected $fillable = ['mensaje', 'created']; 
+    protected $fillable = ['mensaje', 'id_usuario'];
     public $timestamps = true;
 }

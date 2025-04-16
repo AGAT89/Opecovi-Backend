@@ -6,20 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::table('messages', function (Blueprint $table) {
-            $table->text('mensaje'); 
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->text('mensaje');
+            $table->unsignedBigInteger('id_usuario')->nullable();
+            $table->timestamps();
         });
     }
-    
+
     public function down(): void
     {
-        Schema::table('messages', function (Blueprint $table) {
-            $table->dropColumn('mensaje');
-        });
+        Schema::dropIfExists('messages');
     }
 };
