@@ -20,6 +20,7 @@ class Articulo extends Model
         'contenido_articulo',
         'peso_articulo',
         'volumen_articulo',
+        'stock',
         'stock_minimo',
         'stock_maximo',
         'tipo_articulo',

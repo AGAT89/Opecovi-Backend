@@ -39,6 +39,7 @@ class ArticuloController extends Controller
             'contenido_articulo' => $request->contenido_articulo,
             'peso_articulo' => $request->peso_articulo,
             'volumen_articulo' => $request->volumen_articulo,
+            'stock' => $request->stock,
             'stock_minimo' => $request->stock_minimo,
             'stock_maximo' => $request->stock_maximo,
             'tipo_articulo' => $request->tipo_articulo,
@@ -90,6 +91,7 @@ class ArticuloController extends Controller
         $articulo->contenido_articulo = $request->contenido_articulo;
         $articulo->peso_articulo = $request->peso_articulo;
         $articulo->volumen_articulo = $request->volumen_articulo;
+        $articulo->stock = $request->stock;
         $articulo->stock_minimo = $request->stock_minimo;
         $articulo->stock_maximo = $request->stock_maximo;
         $articulo->tipo_articulo = $request->tipo_articulo;
