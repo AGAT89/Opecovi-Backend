@@ -56,9 +56,9 @@ class ChatController extends Controller
         $request->validate([
             'id_usuario' => 'required|integer',
         ]);
-    
+
         $messages = Message::where('id_usuario', $request->id_usuario)->get();
-    
+
         if ($messages->isEmpty()) {
             $init = Message::create([
                 'mensaje' => 'Hola, ¿qué producto desea buscar?',
@@ -66,13 +66,13 @@ class ChatController extends Controller
             ]);
             $messages = collect([$init]);
         }
-    
+
         return response()->json([
             'statusCode' => 200,
             'data' => $messages,
         ]);
     }
-    
+
 
     private function generateAutoResponse($userMessage)
     {
@@ -96,7 +96,7 @@ class ChatController extends Controller
                 $respuesta[] = "No se encontró stock para \"$palabra\".";
             } else {
                 foreach ($articulos as $articulo) {
-                    $respuesta[] = "{$articulo->nomb_articulo}: {$articulo->stock_minimo} en stock.";
+                    $respuesta[] = "{$articulo->nomb_articulo}: {$articulo->stock} en stock.";
                 }
             }
         }

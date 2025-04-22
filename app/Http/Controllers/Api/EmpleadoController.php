@@ -38,6 +38,10 @@ class EmpleadoController extends Controller
             'id_cargo' => $request->id_cargo,
             'es_activo' => '1',
             'es_eliminado' => '0',
+            'usuario_creacion' => $request->usuario_creacion ?? 'system',
+            'usuario_modificacion'=>$request->usuario_modificacion ?? 'system',
+            'fecha_creacion' =>now(),
+            'fecha_modificacion'=>now(),
         ]);
 
         return response()->json(['data'=>$empleado], 200);
