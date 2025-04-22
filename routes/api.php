@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\RolController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\EstadoController;
 use App\Http\Controllers\Api\ChatController;
+use App\Http\Controllers\Api\CotizacionController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,3 +52,4 @@ Route::resource('estados', EstadoController::class);
 Route::post('/chat/send', [ChatController::class, 'sendMessage']);
 Route::get('/chat/messages', [ChatController::class, 'getMessages']);
 Route::post('chat/delete', [ChatController::class, 'deleteUserMessages']);
+Route::resource('cotizaciones', CotizacionController::class);
